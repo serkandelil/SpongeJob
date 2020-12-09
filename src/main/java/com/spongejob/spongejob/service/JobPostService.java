@@ -15,16 +15,20 @@ import java.util.List;
 public class JobPostService {
     private final JobPostRepository jobPostRepository;
 
-    public JobPost addEmployee(JobPost employee) {
-        return jobPostRepository.save(employee);
+    public JobPost addJobPost(JobPost jobPost) {
+        return jobPostRepository.save(jobPost);
     }
 
-    public List<JobPost> getAllEmployees() {
+    public List<JobPost> getAllJobPosts() {
         return jobPostRepository.findAll();
     }
 
     public JobPost getJobPostByJobPostId(Long jobPostId) {
         return jobPostRepository.findByJobPostId(jobPostId).orElseThrow(EntityNotFoundException::new);
+    }
+
+    public List<JobPost> getJobPostsByType(String type) {
+        return jobPostRepository.findAllByType(type);
     }
 
     public void deleteJobPost(Long jobPostId) {

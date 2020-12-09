@@ -10,6 +10,8 @@ public interface JobPostRepository extends JpaRepository<JobPost, Long> {
 
     List<JobPost> findAll();
 
+    List<JobPost> findAllByType(String type);
+
     void deleteByJobPostId(Long jobPostId);
 
     Optional<JobPost> findByJobPostId(Long jobPostId);

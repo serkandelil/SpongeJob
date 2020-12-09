@@ -3,6 +3,7 @@ package com.spongejob.spongejob.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -30,9 +31,12 @@ public class Company {
     @Column(name = "EMAIL")
     private String email;
 
+    @Column(name = "USERNAME")
+    private String username;
+
     @Column(name = "PASSWORD")
     private String password;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<JobPost> jobPosts;
+    private List<JobPost> jobPosts;
 }

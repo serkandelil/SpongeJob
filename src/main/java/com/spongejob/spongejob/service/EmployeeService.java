@@ -25,6 +25,10 @@ public class EmployeeService {
         return employeeRepository.findByEmployeeId(employeeId).orElseThrow(EntityNotFoundException::new);
     }
 
+    public Employee getEmployeeByUsernameAndPassword(String username, String password) {
+        return employeeRepository.findByUsernameAndPassword(username,password).orElseThrow(EntityNotFoundException::new);
+    }
+
     public void deleteEmployee(Long employeeId) {
         employeeRepository.deleteByEmployeeId(employeeId);
     }
