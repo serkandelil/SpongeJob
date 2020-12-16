@@ -1,5 +1,6 @@
 package com.spongejob.spongejob.repository;
 
+import com.spongejob.spongejob.model.Company;
 import com.spongejob.spongejob.model.JobPost;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,4 +16,6 @@ public interface JobPostRepository extends JpaRepository<JobPost, Long> {
     void deleteByJobPostId(Long jobPostId);
 
     Optional<JobPost> findByJobPostId(Long jobPostId);
+
+    List<JobPost> findByCompany(Company company);
 }

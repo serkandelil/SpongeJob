@@ -42,14 +42,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/{username}/{password}")
-    public ResponseEntity<Long> login(@PathVariable String username,@PathVariable String password ) {
-        Employee employee = employeeService.getEmployeeByUsernameAndPassword(username,password);
+    public ResponseEntity<Long> login(@PathVariable String username, @PathVariable String password) {
+        Employee employee = employeeService.getEmployeeByUsernameAndPassword(username, password);
         Long employeeId = employee.getEmployeeId();
         return new ResponseEntity<>(employeeId, HttpStatus.OK);
     }
 
     @GetMapping("/jobPost/{type}")
-    public ResponseEntity<List<JobPostDTO>> getJobPostsByType(@PathVariable String type ) {
+    public ResponseEntity<List<JobPostDTO>> getJobPostsByType(@PathVariable String type) {
         List<JobPost> jobPosts = jobPostService.getJobPostsByType(type);
         List<JobPostDTO> jobPostDTOS = jobPostMapper.maptoDto(jobPosts);
         return new ResponseEntity<>(jobPostDTOS, HttpStatus.OK);
@@ -59,7 +59,7 @@ public class EmployeeController {
     public ResponseEntity<List<ApplicationWithJPInfoDTO>> getApplicationsByEmployeeId(@PathVariable Long employeeId) {
         Employee employee = employeeService.getEmployeeByEmployeeId(employeeId);
         List<Application> applications = employee.getApplications();
-        List<ApplicationWithJPInfoDTO>  applicationWithJPInfoDTOS = applicationMapper.maptoJPInfoDto(applications);
+        List<ApplicationWithJPInfoDTO> applicationWithJPInfoDTOS = applicationMapper.maptoJPInfoDto(applications);
         return new ResponseEntity<>(applicationWithJPInfoDTOS, HttpStatus.OK);
     }
 

@@ -37,18 +37,26 @@ public class CompanyController {
     }
 
     @GetMapping("/{username}/{password}")
-    public ResponseEntity<Long> login(@PathVariable String username,@PathVariable String password ) {
-        Company company = companyService.getCompanyByUsernameAndPassword(username,password);
+    public ResponseEntity<Long> login(@PathVariable String username, @PathVariable String password) {
+        Company company = companyService.getCompanyByUsernameAndPassword(username, password);
         Long companyId = company.getCompanyId();
         return new ResponseEntity<>(companyId, HttpStatus.OK);
     }
 
     @GetMapping("/jobPost/{jobPostId}/applications")
-    public ResponseEntity<List<ApplicationWithEmpInfoDTO>> getApplicantions(@PathVariable Long jobPostId ) {
+    public ResponseEntity<List<ApplicationWithEmpInfoDTO>> getApplicantions(@PathVariable Long jobPostId) {
         JobPost jobPost = jobPostService.getJobPostByJobPostId(jobPostId);
         List<Application> applications = jobPost.getApplications();
         List<ApplicationWithEmpInfoDTO> applicationWithEmpInfoDTOS = applicationMapper.maptoEmpInfoDto(applications);
         return new ResponseEntity<>(applicationWithEmpInfoDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("/{companyId}/jobPosts")
+    public ResponseEntity<List<JobPostDTO>> getJobPosts(@PathVariable Long companyId) {
+        Company company = companyService.getCompanyByCompanyId(companyId);
+        List<JobPost> jobPosts = jobPostService.getJobPostByCompany(company);
+        List<JobPostDTO> jobPostDTOS = jobPostMapper.maptoDto(jobPosts);
+        return new ResponseEntity<>(jobPostDTOS, HttpStatus.OK);
     }
 
     @PostMapping
@@ -59,7 +67,7 @@ public class CompanyController {
     }
 
     @PostMapping("/{companyId}")
-    public ResponseEntity<JobPostDTO> addJobPost(@RequestBody JobPostDTO jobPostDTO,@PathVariable Long companyId) {
+    public ResponseEntity<JobPostDTO> addJobPost(@RequestBody JobPostDTO jobPostDTO, @PathVariable Long companyId) {
         JobPost jobPost = jobPostMapper.maptoEntity(jobPostDTO);
         Company company = companyService.getCompanyByCompanyId(companyId);
         jobPost.setCompany(company);

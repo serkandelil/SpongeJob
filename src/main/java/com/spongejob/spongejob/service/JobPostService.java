@@ -1,5 +1,6 @@
 package com.spongejob.spongejob.service;
 
+import com.spongejob.spongejob.model.Company;
 import com.spongejob.spongejob.model.Employee;
 import com.spongejob.spongejob.model.JobPost;
 import com.spongejob.spongejob.repository.EmployeeRepository;
@@ -25,6 +26,10 @@ public class JobPostService {
 
     public JobPost getJobPostByJobPostId(Long jobPostId) {
         return jobPostRepository.findByJobPostId(jobPostId).orElseThrow(EntityNotFoundException::new);
+    }
+
+    public List<JobPost> getJobPostByCompany(Company company) {
+        return jobPostRepository.findByCompany(company);
     }
 
     public List<JobPost> getJobPostsByType(String type) {
